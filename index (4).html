@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCUMLOADING</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .comet {
+      position: absolute;
+      width: 2px;
+      height: 50px;
+      background: linear-gradient(45deg, #aaa, transparent);
+      border-radius: 2px;
+      animation: floatComet 4s ease-in-out infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes floatComet {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0.1;
+      }
+      50% {
+        transform: translate(-30px, 30px) rotate(45deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0.1;
+      }
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+      z-index: 1;
+      filter: grayscale(100%);
+    }
+
+    .loading-spinner {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid #999;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+      z-index: 1;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: #999;
+      z-index: 1;
+    }
+
+    .error-message {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      color: #ccc;
+      font-size: 14px;
+      text-align: center;
+      z-index: 1;
+      font-weight: 400;
+    }
+
+    .error-button {
+      background: none;
+      border: 1px solid #555;
+      color: #ccc;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .error-button:hover {
+      background: #2a2a2a;
+      border-color: #888;
+    }
+
+    .tg-icon {
+      width: 16px;
+      height: 16px;
+      fill: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <div class="loading-spinner"></div>
+  <div class="loading-text" id="loading">Загрузка...</div>
+
+  <div class="error-message" id="error">
+    <div>Слишком много желающих попасть на наше судно.Попробуйте позже.</div>
+    <div></div>
+    <a href="https://t.me/scumlab" class="error-button">
+      <svg class="tg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><path d="M120 0C53.7 0 0 53.7 0 120c0 66.3 53.7 120 120 120s120-53.7 120-120C240 53.7 186.3 0 120 0zM174.1 80.1l-24.7 117c-1.8 8.1-6.6 10.1-13.3 6.3l-36.8-27.2-17.7 17.1c-2 2-3.8 3.8-7.8 3.8l2.8-39.6 71.9-65.1c3.1-2.8-.7-4.4-4.8-1.6l-88.8 55.9-38.3-12c-8.3-2.6-8.5-8.3 1.7-12.3l149-57.5c6.9-2.5 12.9 1.7 10.7 12z"/></svg>
+      Мы в Telegram
+    </a>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.querySelector('.loading-spinner').style.display = 'none';
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').style.display = 'flex';
+    }, 10000);
+
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 20; i++) {
+      const comet = document.createElement('div');
+      comet.className = 'comet';
+      comet.style.top = Math.random() * window.innerHeight + 'px';
+      comet.style.left = Math.random() * window.innerWidth + 'px';
+      comet.style.animationDelay = (Math.random() * 5) + 's';
+      comet.style.animationDuration = (3 + Math.random() * 3) + 's';
+      starsContainer.appendChild(comet);
+    }
+  </script>
+</body>
+</html>
